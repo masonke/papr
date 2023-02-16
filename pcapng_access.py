@@ -14,6 +14,7 @@ class SharkdDataAccess:
     rpcid = 0
     columns = []
 
+# Windows tcp connection
     def start_session(self, ip_address, port):
         host = socket.gethostbyname(ip_address)
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -21,6 +22,16 @@ class SharkdDataAccess:
             print('c: Connecting to ' + host + ':' + str(port))
         self.s.connect((host, port))
         self.is_connected = True
+
+# Unix socket connection
+# Reference https://pymotw.com/2/socket/uds.html
+    def start_unix_session(self, server_address):
+        self.s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        if self.json_trace:
+            print('c: Connecting to unix socket on :' + str(server_address))
+        self.s.connect((server_address))
+        self.is_connected = True
+
 
     def rpc_send_recv(self, method, params):
         rc = 0
