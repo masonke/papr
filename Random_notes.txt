@@ -1,0 +1,28 @@
+pip3 config set global.trusted-host \
+    "pypi.org files.pythonhosted.org pypi.python.org" \
+    --trusted-host=pypi.python.org \
+    --trusted-host=pypi.org \
+    --trusted-host=files.pythonhosted.org
+
+python3 /Users/kevin.mason/scratch/papr/mod_sharkd.py
+python3 /Users/kevin.mason/scratch/papr/pcapng_access.py
+
+if [[ -e /tmp/sharkd.sock ]] ; then
+        rm /tmp/sharkd.sock
+fi
+sharkd unix:/tmp/sharkd.sock
+
+Notes on unix sockets
+https://pymotw.com/2/socket/uds.html
+ 
+
+Python 3.10.10 (main, Feb  8 2023, 05:44:38) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+import socket
+sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+sock.connect("/tmp/sharkd.sock")
+Hello in child.
+
+
+git checkout add_unix_sockets
+git checkout main
