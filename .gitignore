@@ -3,6 +3,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# packet captures
+*.pcap
+*.pcapng
+*.dump
+*.cap
+
+.DS_Store
+
 # C extensions
 *.so
 
