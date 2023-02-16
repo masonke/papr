@@ -6,10 +6,9 @@
 #sharkd_server_ip = '127.0.0.1'
 #sharkd_server_port = 4446  # The port used by sharkd
 
-# The file is sharkd using for the socket
+# The file name sharkd using for the socket
 sharkd_server_fh = '/tmp/sharkd.sock'
 
-# Added this to simplify development
 pcap_file = '/tmp/small.pcapng'
 
 dup_pkts_threshold = 1000  # change this as needed
