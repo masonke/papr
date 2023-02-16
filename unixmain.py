@@ -8,7 +8,7 @@
 
 sharkd_server_unix = '/tmp/sharkd.sock'
 
-#pcap_file = '/Users/foo/small.pcapng'
+pcap_file = '/tmp/small.pcapng'
 
 dup_pkts_threshold = 1000  # change this as needed
 tcp_retrans_threshold = 0.01 # this is a percentage
@@ -39,7 +39,7 @@ def p95_ms(x):
 
 # Ask the user for the pcap filename
 
-pcap_file = input("Packet capture file name ") 
+# pcap_file = input("Packet capture file name ") 
 
 print('')
 print('PACKET ANALYSIS PREPARATION REPORT')
