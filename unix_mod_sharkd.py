@@ -14,7 +14,7 @@ def safe_float(string_in):
 
 ##  This is the Unix file
 
-class SharkdSession:
+class SharkdUnixSession:
     json_trace = False
     s = ""
     is_connected = False

@@ -20,7 +20,7 @@ tcp_retrans_consecutive = 0
 
 import pandas as pd
 import numpy as np
-from mod_sharkd import SharkdSession
+from unix_mod_sharkd import SharkdUnixSession
 import sys
 
 # Set up the math values for later use.
@@ -37,24 +37,23 @@ def mean_ms(x):
 def p95_ms(x):
     return round(x.quantile(0.95) * 1000, 1)
 
-# Ask the user for the pcap filename
-
-# pcap_file = input("Packet capture file name ") 
 
 print('')
 print('PACKET ANALYSIS PREPARATION REPORT')
 print('')
 
-s = self.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-s.connect("/tmp/sharkd.sock")
+sharkd_session = SharkdUnixSession(sharkd_server_ip, sharkd_server_port)
+if not sharkd_session.is_connected:
+    print("Connection to the sharkd server has failed")
+    exit(-1)
 
-response, rc, error_msg = sock.sharkd_load(pcap_file)
+response, rc, error_msg = sharkd_session.sharkd_load(pcap_file)
 if rc != 0:
     print(error_msg, end='')
     print(': ' + pcap_file)
     exit(-1)
 
-response, rc, error_msg = sock.sharkd_get_status()
+response, rc, error_msg = sharkd_session.sharkd_get_status()
 
 frame_count = response['result']['frames']
 
