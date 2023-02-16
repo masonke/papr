@@ -12,7 +12,7 @@ s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 print('c: Connecting to /tmp/sharkd.sock')
 s.connect("/tmp/sharkd.sock")
 
-json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"/Users/foo/small.pcapng"}}'
+json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"/tmp/small.pcapng"}}'
 print('s: ' + json_string)
 recv_json = json_send_recv(s, json_string)
 print('r: ' + recv_json)
