@@ -45,8 +45,8 @@ print('')
 print('PACKET ANALYSIS PREPARATION REPORT')
 print('')
 
-sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-sock.connect("/tmp/sharkd.sock")
+s = self.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+s.connect("/tmp/sharkd.sock")
 
 response, rc, error_msg = sock.sharkd_load(pcap_file)
 if rc != 0:
