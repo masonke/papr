@@ -3,7 +3,7 @@ import json
 import re
 import pandas as pd
 
-# sharkd_server_fh is the name of the file used with the unix socket by sharkd
+# sharkd_socket_name is the name of the file used with the unix socket by sharkd
 
 def get_json_bytes(json_string):
     return bytes((json_string + '\n'), 'utf-8')
@@ -27,11 +27,11 @@ class SharkdDataAccess:
 
 # Unix socket connection
 # Reference https://pymotw.com/2/socket/uds.html
-    def start_unix_session(self, sharkd_server_fh):
+    def start_unix_session(self, sharkd_socket_name):
         self.s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         if self.json_trace:
-            print('c: Connecting to unix socket on :' + str(sharkd_server_fh))
-        self.s.connect((sharkd_server_fh))
+            print('c: Connecting to unix socket on :' + str(sharkd_socket_name))
+        self.s.connect((sharkd_socket_name))
         self.is_connected = True
 
 

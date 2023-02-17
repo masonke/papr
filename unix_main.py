@@ -7,7 +7,7 @@
 #sharkd_server_port = 4446  # The port used by sharkd
 
 # The file name sharkd using for the socket
-sharkd_server_fh = '/tmp/sharkd.sock'
+sharkd_socket_name = '/tmp/sharkd.sock'
 
 pcap_file = '/tmp/small.pcapng'
 
@@ -43,7 +43,7 @@ print('')
 print('PACKET ANALYSIS PREPARATION REPORT')
 print('')
 
-sharkd_session = SharkdUnixSession(sharkd_server_fh)
+sharkd_session = SharkdUnixSession(sharkd_socket_name)
 if not sharkd_session.is_connected:
     print("Connection to the sharkd server has failed")
     exit(-1)

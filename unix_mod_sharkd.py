@@ -21,8 +21,8 @@ class SharkdUnixSession:
     rpcid = 0
     data_access = SharkdDataAccess()
 
-    def __init__(self, sharkd_server_fh):
-        self.data_access.start_unix_session(sharkd_server_fh)
+    def __init__(self, sharkd_socket_name):
+        self.data_access.start_unix_session(sharkd_socket_name)
         self.is_connected = True
 
     def sharkd_load(self, filespec):
