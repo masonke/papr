@@ -14,6 +14,8 @@ sharkd unix:/tmp/sharkd.sock
 
 Notes on unix sockets
 https://pymotw.com/2/socket/uds.html
+https://youtu.be/yUhjskNO2yY Unix Domain sockets Introduction (c language)
+https://youtu.be/3iULju0-EiA Python 3: 72 l AF UNIX & Raw sockets
  
 
 Python 3.10.10 (main, Feb  8 2023, 05:44:38) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin
