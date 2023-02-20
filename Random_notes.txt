@@ -4,8 +4,8 @@ pip3 config set global.trusted-host \
     --trusted-host=pypi.org \
     --trusted-host=files.pythonhosted.org
 
-python3 /Users/kevin.mason/scratch/papr/mod_sharkd.py
-python3 /Users/kevin.mason/scratch/papr/pcapng_access.py
+python3 /Users/kevin.mason/scratch/papr/unix_mod_sharkd.py
+python3 /Users/kevin.mason/scratch/papr/unix_pcapng_access.py
 
 if [[ -e /tmp/sharkd.sock ]] ; then
         rm /tmp/sharkd.sock
@@ -16,7 +16,9 @@ Notes on unix sockets
 https://pymotw.com/2/socket/uds.html
 https://youtu.be/yUhjskNO2yY Unix Domain sockets Introduction (c language)
 https://youtu.be/3iULju0-EiA Python 3: 72 l AF UNIX & Raw sockets
- 
+https://youtu.be/mpWd1KGl754 The Superpower of Unix Sockets
+https://github.com/simonracz/unix-sockets
+
 
 Python 3.10.10 (main, Feb  8 2023, 05:44:38) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
@@ -28,3 +30,15 @@ Hello in child.
 
 git checkout add_unix_sockets
 git checkout main
+
+
+# https://wiki.wireshark.org/sharkd-JSON-RPC-Request-Syntax
+# https://stackoverflow.com/questions/20777173/add-variable-value-in-a-json-string-in-python
+
+pcap_name = '/tmp/small.pcapng'
+
+s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+print('c: Connecting to ' + uds_server_address)
+s.connect(uds_server_address)
+
+json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"'+pcap_name+'"}}'

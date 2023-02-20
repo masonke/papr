@@ -26,7 +26,7 @@ except socket.error as msg:
     print("Socket binding error" + str(msg) + "\n" + "Retrying...")
     socket_bind
 
-#Accept connections (Establishes connection with client) socket has to       be listining
+#Accept connections (Establishes connection with client) socket has to be listining
 def socket_accept():
    conn, address = s.accept()
    print("Connection is established |" + " IP:" + str(address[0]) + "|    port:" + str(address[1]))
