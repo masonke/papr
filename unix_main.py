@@ -44,9 +44,18 @@ print('PACKET ANALYSIS PREPARATION REPORT')
 print('')
 
 sharkd_session = SharkdUnixSession(sharkd_socket_name)
+print('')
+print(sharkd_session)
+print('')
 if not sharkd_session.is_connected:
     print("Connection to the sharkd server has failed")
     exit(-1)
+
+print('')
+print("testpoint 1")
+print('')
+
+
 
 response, rc, error_msg = sharkd_session.sharkd_load(pcap_file)
 if rc != 0:

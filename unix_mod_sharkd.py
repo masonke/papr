@@ -1,5 +1,5 @@
 import pandas as pd
-from pcapng_access import SharkdDataAccess
+from unix_pcapng_access import SharkdDataAccess
 
 
 def get_json_bytes(json_string):
