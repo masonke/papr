@@ -21,7 +21,8 @@ s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 print('c: Connecting to ' + uds_server_address)
 s.connect(uds_server_address)
 
-json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"pcap_name"}}'
+json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"'+pcap_name+'"}}'
+
 print('s: ' + json_string)
 
 recv_json = json_send_recv(s, json_string)
