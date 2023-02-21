@@ -6,6 +6,15 @@ import os
 # https://stackoverflow.com/questions/20777173/add-variable-value-in-a-json-string-in-python
 
 
+uds_server_address = '/private/tmp/sharkd.sock'
+pcap_name = '/private/tmp/small.pcapng'
+
+# Clear the old server socket
+# if [[ -e /tmp/sharkd.sock ]] ; then
+#   rm /tmp/sharkd.sock
+# fi
+
+
 def get_json_bytes(json_string):
     return bytes((json_string + '\n'), 'utf-8')
 
@@ -14,15 +23,16 @@ def json_send_recv(s, json) -> str:
     data = s.recv(1024)
     return data[:-4].decode('utf-8')
 
-uds_server_address = '/private/tmp/sharkd.sock'
-pcap_name = '/tmp/small.pcapng'
 
 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 print('c: Connecting to ' + uds_server_address)
-s.connect(uds_server_address)
+try:
+	s.connect(uds_server_address)
+except socket.error as msg:
+    print(msg)
+    sys.exit(1)
 
 json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"'+pcap_name+'"}}'
-
 print('s: ' + json_string)
 
 recv_json = json_send_recv(s, json_string)
