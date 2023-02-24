@@ -10,7 +10,15 @@ import os
 uds_server_address = '/private/tmp/sharkd.sock'
 pcap_name = '/private/tmp/small.pcapng'
 
-# Clear the old server socket
+
+# Check that the pcap file actually exists. 
+if not os.path.isfile(pcap_name):
+    print('The pcap file ' +pcap_name+ ' is either missing or not readable')
+    sys.exit(1)
+else:
+    print('The pcap file ' +pcap_name+ ' exists and is readable. \n\n')
+
+# Note: Clear the old server socket
 # if [[ -e /tmp/sharkd.sock ]] ; then
 #   rm /tmp/sharkd.sock
 # fi
@@ -22,7 +30,7 @@ def get_json_bytes(json_string):
 # If received data is cut off, increase this value.
 def json_send_recv(s, json) -> str:
     s.sendall(get_json_bytes(json))
-    data = s.recv(32768)
+    data = s.recv(131072)
     return data[:-4].decode('utf-8')
 
 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -35,38 +43,38 @@ except socket.error as msg:
 
 # Load the pcap file
 json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"'+pcap_name+'"}}'
-print('s: ' + json_string)
+print('\n\ns: ' + json_string)
 
 recv_json = json_send_recv(s, json_string)
-print('r: ' + recv_json)
+print('\nr: ' + recv_json)
 
 # Get the staus of the pcap
 json_string = '{"jsonrpc":"2.0","id":2,"method":"status"}'
-print('s: ' + json_string)
+print('\n\ns: ' + json_string)
 
 rx_json = json_send_recv(s, json_string)
-print('r: ' + rx_json)
-
-json_string = '{"jsonrpc":"2.0","id":2,"method":"analyse"}'
-print('s: ' + json_string)
-
-rx_json = json_send_recv(s, json_string)
-print('r: ' + rx_json)
+print('\nr: ' + rx_json)
 
 # https://wiki.wireshark.org/sharkd-JSON-RPC-Request-Syntax#tap
 json_string = '{"jsonrpc":"2.0","id":2,"method":"tap","params":{"tap0":"expert"}}'
-print('s: ' + json_string)
+print('\n\ns: ' + json_string)
 
 rx_json = json_send_recv(s, json_string)
-print('r: ' + rx_json)
+print('\nr: ' + rx_json)
 
 json_string = '{"jsonrpc":"2.0","id":2,"method":"tap","params":{"tap0":"seqa:tcp"}}'
-print('s: ' + json_string)
+print('\n\ns: ' + json_string)
 
 rx_json = json_send_recv(s, json_string)
-print('r: ' + rx_json)
+print('\nr: ' + rx_json)
 
-print('c: Closing connection to ' + uds_server_address)
+json_string = '{"jsonrpc":"2.0","id":2,"method":"analyse"}'
+print('\n\ns: ' + json_string)
+
+rx_json = json_send_recv(s, json_string)
+print('\nr: ' + rx_json)
+
+print('\n\nc: Closing connection to ' + uds_server_address)
 
 s.close()
 
