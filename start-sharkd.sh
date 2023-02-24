@@ -16,6 +16,9 @@ if pgrep [s]harkd
 then
   echo "Sharkd is already running"
 else
+  echo "sharkd is not running."
+  echo "Starting sharkd"
+  echo " "
   echo "Deleting the old socket file"
   if [[ -e /private/tmp/sharkd.sock ]] ; then
 	rm /private/tmp/sharkd.sock
