@@ -42,3 +42,22 @@ print('c: Connecting to ' + uds_server_address)
 s.connect(uds_server_address)
 
 json_string = '{"jsonrpc":"2.0","id":1,"method":"load","params":{"file":"'+pcap_name+'"}}'
+
+
+
+
+if not os.path.exists('/tmp/test/small.pcapng'):
+
+
+pcap_name = '/private/tmp/small.pcapng'
+
+if os.path.isfile(pcap_name):
+    print("The pcap file exists and is readable")
+else:
+    print("Either the pcap file is missing or not readable")
+
+
+if not os.path.isfile(pcap_name):
+    print("Either the pcap file is missing or not readable")
+else:
+    print("The pcap file exists and is readable")
