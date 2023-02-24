@@ -17,11 +17,11 @@ then
   echo "Sharkd is already running"
 else
   echo "sharkd is not running."
-  echo "Starting sharkd"
+  echo 
   echo " "
   echo "Deleting the old socket file"
   if [[ -e /private/tmp/sharkd.sock ]] ; then
-	rm /private/tmp/sharkd.sock
+    rm /private/tmp/sharkd.sock
   fi
   echo "Starting sharkd"
   sharkd unix:/private/tmp/sharkd.sock
