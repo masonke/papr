@@ -178,6 +178,7 @@ class SharkdDataAccess:
             46: ft_string,
         }
         func = switcher.get(self.columns[col_index]['ws_type'], ft_string)
+        # ft is the wireshark field type
         # Execute the function
         return func(ws_value)
 
