@@ -1,0 +1,46 @@
+
+#### Windows file
+
+sharkd_session = SharkdSession(sharkd_server_ip, sharkd_server_port)
+if not sharkd_session.is_connected:
+    print("Connection to the sharkd server has failed")
+    exit(-1)
+
+response, rc, error_msg = sharkd_session.sharkd_load(pcap_file)
+if rc != 0:
+    print(error_msg, end='')
+    print(': ' + pcap_file)
+    exit(-1)
+
+response, rc, error_msg = sharkd_session.sharkd_get_status()
+
+frame_count = response['result']['frames']
+
+
+
+
+
+#### Unix File
+import socket
+import json
+import re
+sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+sock.connect("/tmp/sharkd.sock")
+
+ConnectionRefusedError: [Errno 61] Connection refused <- Need to start server process
+
+response, rc, error_msg = sock.sharkd_load(pcap_file)
+if rc != 0:
+    print(error_msg, end='')
+    print(': ' + pcap_file)
+    exit(-1)
+
+response, rc, error_msg = sock.sharkd_get_status()
+
+frame_count = response['result']['frames']
+
+##### Test Unix
+s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+print('c: Connecting to /tmp/sharkd.sock')
+s.connect("/tmp/sharkd.sock")
+
